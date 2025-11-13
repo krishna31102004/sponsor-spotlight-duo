@@ -8,97 +8,101 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 215 25% 15%;
+    /* Circle Brand - Dark Navy to Purple Gradient Theme */
+    --background: 230 35% 8%;
+    --foreground: 0 0% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 215 25% 15%;
+    --card: 235 30% 15%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 15%;
+    --popover: 235 30% 12%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 213 94% 48%;
+    --primary: 265 85% 65%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 142 76% 36%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 190 90% 60%;
+    --secondary-foreground: 230 35% 8%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 235 25% 20%;
+    --muted-foreground: 230 15% 65%;
 
-    --accent: 27 96% 61%;
-    --accent-foreground: 215 25% 15%;
+    --accent: 280 80% 70%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 214 32% 88%;
-    --input: 214 32% 91%;
-    --ring: 213 94% 48%;
+    --border: 235 25% 25%;
+    --input: 235 25% 22%;
+    --ring: 265 85% 65%;
     
-    --success: 142 76% 36%;
-    --info: 199 89% 48%;
+    --success: 142 76% 50%;
+    --info: 190 90% 60%;
     --warning: 38 92% 50%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    --sidebar-background: 0 0% 98%;
+    /* Circle gradient colors */
+    --gradient-purple: 270 80% 65%;
+    --gradient-blue: 190 90% 60%;
+    --gradient-navy: 230 40% 10%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 230 35% 8%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 265 85% 65%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 235 30% 15%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 235 25% 25%;
+    --sidebar-ring: 265 85% 65%;
   }
 
   .dark {
-    --background: 215 28% 12%;
-    --foreground: 210 40% 98%;
+    --background: 230 35% 8%;
+    --foreground: 0 0% 98%;
 
-    --card: 215 25% 16%;
-    --card-foreground: 210 40% 98%;
+    --card: 235 30% 15%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 215 25% 16%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 235 30% 12%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 213 94% 58%;
+    --primary: 265 85% 65%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 142 76% 40%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 190 90% 60%;
+    --secondary-foreground: 230 35% 8%;
 
-    --muted: 217 33% 20%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 235 25% 20%;
+    --muted-foreground: 230 15% 65%;
 
-    --accent: 27 96% 65%;
-    --accent-foreground: 215 25% 15%;
+    --accent: 280 80% 70%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 217 33% 20%;
-    --input: 217 33% 20%;
-    --ring: 213 94% 58%;
+    --border: 235 25% 25%;
+    --input: 235 25% 22%;
+    --ring: 265 85% 65%;
     
-    --success: 142 76% 40%;
-    --info: 199 89% 52%;
-    --warning: 38 92% 55%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --success: 142 76% 50%;
+    --info: 190 90% 60%;
+    --warning: 38 92% 50%;
+
+    --gradient-purple: 270 80% 65%;
+    --gradient-blue: 190 90% 60%;
+    --gradient-navy: 230 40% 10%;
+
+    --sidebar-background: 230 35% 8%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 265 85% 65%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 235 30% 15%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 235 25% 25%;
+    --sidebar-ring: 265 85% 65%;
   }
 }
 
@@ -108,6 +112,37 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-gradient-to-br from-[hsl(230,35%,8%)] via-[hsl(250,40%,12%)] to-[hsl(265,35%,15%)] text-foreground;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-card/40 backdrop-blur-xl border border-border/50 shadow-2xl;
+  }
+  
+  .gradient-purple-blue {
+    background: linear-gradient(135deg, hsl(var(--gradient-purple)), hsl(var(--gradient-blue)));
+  }
+  
+  .gradient-border {
+    position: relative;
+    background: hsl(var(--card));
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(135deg, hsl(var(--gradient-purple)), hsl(var(--gradient-blue)));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
   }
 }

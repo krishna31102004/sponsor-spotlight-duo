@@ -1,22 +1,22 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
-  Users, 
-  Target, 
-  TrendingUp, 
-  Share2, 
-  Eye, 
+  ArrowLeft,
   MapPin, 
+  Users, 
+  DollarSign,
+  TrendingUp,
   CheckCircle2,
-  Filter,
-  Heart,
   Mail,
-  Calendar,
-  DollarSign
+  Heart,
+  Filter,
+  ChevronRight,
+  Sparkles,
+  Target,
+  Award
 } from "lucide-react";
 
 const SponsorshipHub = () => {
@@ -25,25 +25,23 @@ const SponsorshipHub = () => {
 
   const businessData = {
     name: "ASU Circle Innovators",
-    category: "Student hackathon team",
+    tag: "Student hackathon team",
     location: "Tempe, AZ",
     audienceSize: "500+ students",
+    mission: "Run hands-on AI showcase events that connect students, mentors, and local sponsors.",
     fundingGoal: 5000,
     raisedSoFar: 2800,
     purpose: "Cover venue costs, prizes, and travel scholarships for underrepresented students participating in our annual Campus AI Showcase.",
     stats: [
-      { label: "Expected Participants", value: "500+" },
-      { label: "Social Followers", value: "2.3K" },
-      { label: "Previous Event Reach", value: "10K+" },
-      { label: "Student Projects", value: "50+" }
+      { label: "Participants", value: "500+", sublabel: "per event" },
+      { label: "Social Reach", value: "2.3K", sublabel: "followers" },
+      { label: "Sponsor ROI", value: "95%", sublabel: "satisfaction" }
     ],
     benefits: [
-      "Logo on all event banners and website",
-      "Dedicated social media shout-outs",
-      "Booth space at showcase event",
-      "Access to student resumes and portfolios",
-      "Speaking opportunity at opening ceremony",
-      "Recognition in press releases"
+      "Logo on event materials",
+      "Presence at the event",
+      "Talent pipeline introductions",
+      "Impact story after the event"
     ]
   };
 
@@ -52,327 +50,353 @@ const SponsorshipHub = () => {
       id: 1,
       name: "ASU Circle Innovators",
       category: "Student Event",
-      mission: "Empowering next-gen AI talent through hands-on showcase events",
+      mission: "Hands-on AI fair connecting students and local tech sponsors.",
       audienceSize: "500+",
       requestedAmount: "$5,000",
       fitScore: 92,
-      details: {
-        story: "We're a student-led organization passionate about making AI education accessible. Our Campus AI Showcase brings together students from diverse backgrounds to build, learn, and compete in a supportive environment.",
-        breakdown: [
-          { item: "Venue & Equipment", amount: "$2,000" },
-          { item: "Travel Scholarships", amount: "$1,500" },
-          { item: "Prizes & Materials", amount: "$1,500" }
-        ]
-      }
+      story: "We're a student-led organization passionate about making AI education accessible. Our Campus AI Showcase brings together students from diverse backgrounds to build, learn, and compete in a supportive environment.",
+      breakdown: [
+        { item: "Venue & Equipment", amount: "$2,000" },
+        { item: "Travel Scholarships", amount: "$1,500" },
+        { item: "Prizes & Materials", amount: "$1,500" }
+      ]
     },
     {
       id: 2,
       name: "Tech Community Collective",
-      category: "Nonprofit Partner",
-      mission: "Building inclusive tech communities in underserved neighborhoods",
-      audienceSize: "1,200+",
-      requestedAmount: "$8,000",
+      category: "Club Partnership",
+      mission: "Weekly networking nights for students and tech professionals.",
+      audienceSize: "300+",
+      requestedAmount: "$3,500",
       fitScore: 85,
-      details: {
-        story: "We organize free coding workshops and mentorship programs for youth in underserved communities, helping bridge the digital divide and create pathways to tech careers.",
-        breakdown: [
-          { item: "Workshop Materials", amount: "$3,000" },
-          { item: "Mentor Stipends", amount: "$3,500" },
-          { item: "Student Laptops", amount: "$1,500" }
-        ]
-      }
+      story: "Building bridges between students and industry through monthly networking events and mentorship programs.",
+      breakdown: [
+        { item: "Venue Rental", amount: "$1,500" },
+        { item: "Food & Beverages", amount: "$1,200" },
+        { item: "Marketing", amount: "$800" }
+      ]
     },
     {
       id: 3,
-      name: "Campus Sustainability Initiative",
-      category: "Student Research",
-      mission: "Developing smart solutions for campus environmental challenges",
-      audienceSize: "800+",
-      requestedAmount: "$4,500",
+      name: "First Year Builders Club",
+      category: "Community Meetup",
+      mission: "Mini-hackathon series for first-year engineering students.",
+      audienceSize: "200+",
+      requestedAmount: "$2,500",
       fitScore: 78,
-      details: {
-        story: "Our team is building IoT sensors and data analytics tools to help the university reduce waste and optimize energy consumption across campus buildings.",
-        breakdown: [
-          { item: "Sensor Hardware", amount: "$2,500" },
-          { item: "Cloud Infrastructure", amount: "$1,000" },
-          { item: "Research & Testing", amount: "$1,000" }
-        ]
-      }
+      story: "Empowering first-year students to build confidence through monthly mini-hacks with mentorship from upperclassmen and industry professionals.",
+      breakdown: [
+        { item: "Workshop Materials", amount: "$1,000" },
+        { item: "Prizes", amount: "$1,000" },
+        { item: "Snacks & Supplies", amount: "$500" }
+      ]
     }
   ];
 
   const selectedOpp = opportunities.find(o => o.id === selectedOpportunity);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Background decorative circle */}
+      <div className="fixed top-1/4 right-0 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-primary/20 via-accent/10 to-secondary/20 blur-3xl opacity-30 pointer-events-none" />
+      <div className="fixed bottom-0 left-0 w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-secondary/15 via-primary/10 to-accent/15 blur-3xl opacity-20 pointer-events-none" />
+
       {/* Header */}
-      <header className="border-b border-border bg-card">
-        <div className="container mx-auto px-4 py-6">
-          <h1 className="text-2xl font-bold text-foreground">Sponsorship Hub</h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            Match student projects with sponsors in a trusted way
-          </p>
+      <header className="relative border-b border-border/50 backdrop-blur-sm">
+        <div className="container mx-auto px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary" />
+              <span className="text-xl font-bold text-foreground">circle</span>
+            </div>
+          </div>
+          <Button variant="ghost" className="gap-2 text-muted-foreground hover:text-foreground">
+            <ArrowLeft className="w-4 h-4" />
+            Back to Events
+          </Button>
         </div>
       </header>
 
-      {/* Banner */}
-      <div className="bg-primary/5 border-b border-primary/10">
-        <div className="container mx-auto px-4 py-4">
-          <p className="text-sm text-primary font-medium text-center">
-            💼 This template lets us show both perspectives in partner meetings
-          </p>
-        </div>
-      </div>
-
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-foreground mb-3">
-            Sponsorship Hub Template
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
-            This page shows both sides of the sponsorship flow in one place—the club or 
-            business that needs support and the sponsor who is exploring opportunities.
+      <div className="container mx-auto px-6 py-12 relative z-10">
+        {/* Hero Section */}
+        <div className="text-center mb-12 space-y-4">
+          <Badge className="mb-2 bg-primary/20 text-primary border-primary/30 px-4 py-1">
+            <Sparkles className="w-3 h-3 mr-1" />
+            Circle for Sponsors
+          </Badge>
+          <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-3 tracking-tight">
+            Sponsorship Hub
+          </h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Match student events and clubs with sponsors who care about impact.
           </p>
-
-          {/* View Toggle */}
-          <Tabs value={activeView} onValueChange={(v) => setActiveView(v as "business" | "sponsor")} className="w-full max-w-md mx-auto">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="business">
-                <Target className="w-4 h-4 mr-2" />
-                View as Business/Club
-              </TabsTrigger>
-              <TabsTrigger value="sponsor">
-                <Heart className="w-4 h-4 mr-2" />
-                View as Sponsor
-              </TabsTrigger>
-            </TabsList>
-          </Tabs>
+          <p className="text-sm text-muted-foreground/70 max-w-xl mx-auto pt-2">
+            This is a demo view for partner meetings showing both business and sponsor perspectives.
+          </p>
         </div>
 
-        {/* Split Layout */}
-        <div className="grid lg:grid-cols-2 gap-6">
-          {/* Left Side - Business/Club View */}
-          <div className={`transition-all ${activeView === "business" ? "ring-2 ring-primary rounded-lg" : ""}`}>
-            <Card className="h-full">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Target className="w-5 h-5 text-primary" />
-                  For clubs and businesses seeking sponsors
-                </CardTitle>
-                <CardDescription>
-                  How your sponsorship profile appears to potential supporters
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                {/* Summary Header */}
-                <div className="space-y-3">
-                  <div>
-                    <h3 className="text-2xl font-bold text-foreground">{businessData.name}</h3>
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      <Badge variant="secondary">{businessData.category}</Badge>
-                      <Badge variant="outline" className="gap-1">
-                        <MapPin className="w-3 h-3" />
-                        {businessData.location}
-                      </Badge>
-                      <Badge variant="outline" className="gap-1">
-                        <Users className="w-3 h-3" />
-                        {businessData.audienceSize}
-                      </Badge>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Funding Goals */}
-                <div className="space-y-3 p-4 bg-muted/50 rounded-lg">
-                  <div className="flex items-center justify-between">
-                    <h4 className="font-semibold text-foreground flex items-center gap-2">
-                      <DollarSign className="w-4 h-4 text-success" />
-                      Funding Goals
-                    </h4>
-                    <span className="text-sm font-medium text-muted-foreground">
-                      ${businessData.raisedSoFar.toLocaleString()} / ${businessData.fundingGoal.toLocaleString()}
-                    </span>
-                  </div>
-                  <Progress 
-                    value={(businessData.raisedSoFar / businessData.fundingGoal) * 100} 
-                    className="h-3"
-                  />
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {businessData.purpose}
-                  </p>
-                </div>
-
-                {/* Audience & Impact */}
-                <div className="space-y-3">
-                  <h4 className="font-semibold text-foreground flex items-center gap-2">
-                    <TrendingUp className="w-4 h-4 text-info" />
-                    Audience & Impact
-                  </h4>
-                  <div className="grid grid-cols-2 gap-3">
-                    {businessData.stats.map((stat, idx) => (
-                      <div key={idx} className="p-3 bg-card border border-border rounded-lg">
-                        <p className="text-2xl font-bold text-primary">{stat.value}</p>
-                        <p className="text-xs text-muted-foreground mt-1">{stat.label}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Sponsor Benefits */}
-                <div className="space-y-3">
-                  <h4 className="font-semibold text-foreground flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-success" />
-                    Sponsor Benefits
-                  </h4>
-                  <div className="space-y-2">
-                    {businessData.benefits.map((benefit, idx) => (
-                      <div key={idx} className="flex items-start gap-2 text-sm">
-                        <CheckCircle2 className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
-                        <span className="text-muted-foreground">{benefit}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Call to Action */}
-                <div className="flex flex-col sm:flex-row gap-3 pt-4">
-                  <Button className="flex-1 gap-2">
-                    <Share2 className="w-4 h-4" />
-                    Share Sponsorship Deck
-                  </Button>
-                  <Button variant="outline" className="flex-1 gap-2">
-                    <Eye className="w-4 h-4" />
-                    Preview Sponsor View
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+        {/* View Switch */}
+        <div className="flex justify-center mb-10">
+          <div className="inline-flex glass-card rounded-full p-1.5 gap-1">
+            <button
+              onClick={() => setActiveView("business")}
+              className={`
+                px-6 py-3 rounded-full font-medium text-sm transition-all duration-300 flex items-center gap-2
+                ${activeView === "business" 
+                  ? "bg-gradient-to-r from-primary to-accent text-white shadow-lg shadow-primary/50" 
+                  : "text-muted-foreground hover:text-foreground"
+                }
+              `}
+            >
+              <Target className="w-4 h-4" />
+              View as Business/Club
+            </button>
+            <button
+              onClick={() => setActiveView("sponsor")}
+              className={`
+                px-6 py-3 rounded-full font-medium text-sm transition-all duration-300 flex items-center gap-2
+                ${activeView === "sponsor" 
+                  ? "bg-gradient-to-r from-primary to-accent text-white shadow-lg shadow-primary/50" 
+                  : "text-muted-foreground hover:text-foreground"
+                }
+              `}
+            >
+              <Heart className="w-4 h-4" />
+              View as Sponsor
+            </button>
           </div>
+        </div>
 
-          {/* Right Side - Sponsor View */}
-          <div className={`transition-all ${activeView === "sponsor" ? "ring-2 ring-primary rounded-lg" : ""}`}>
-            <Card className="h-full">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Heart className="w-5 h-5 text-accent" />
-                  For sponsors exploring opportunities
-                </CardTitle>
-                <CardDescription>
-                  Discover and connect with impactful projects
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {/* Filter Bar */}
-                <div className="flex flex-wrap gap-2 p-3 bg-muted/30 rounded-lg border border-border">
-                  <Button variant="outline" size="sm" className="gap-1">
-                    <Filter className="w-3 h-3" />
-                    Category
-                  </Button>
-                  <Button variant="outline" size="sm" className="gap-1">
-                    <DollarSign className="w-3 h-3" />
-                    Budget Range
-                  </Button>
-                  <Button variant="outline" size="sm" className="gap-1">
-                    <MapPin className="w-3 h-3" />
-                    Location
-                  </Button>
+        {/* Main Card Container */}
+        <div className={`
+          max-w-5xl mx-auto glass-card rounded-3xl p-8 transition-all duration-500
+          ${activeView === "business" ? "ring-2 ring-primary/50" : "ring-2 ring-secondary/50"}
+        `}>
+          {/* Business/Club View */}
+          {activeView === "business" && (
+            <div className="space-y-8 animate-in fade-in duration-500">
+              <div>
+                <h2 className="text-2xl font-bold text-foreground mb-2 flex items-center gap-2">
+                  <Target className="w-6 h-6 text-primary" />
+                  For clubs and businesses seeking sponsors
+                </h2>
+                <p className="text-muted-foreground">How your Circle profile appears to potential supporters</p>
+              </div>
+
+              {/* Profile Summary */}
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-3xl font-bold text-foreground mb-3">{businessData.name}</h3>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <Badge variant="secondary" className="text-sm">{businessData.tag}</Badge>
+                    <Badge variant="outline" className="gap-1">
+                      <MapPin className="w-3 h-3" />
+                      {businessData.location}
+                    </Badge>
+                    <Badge variant="outline" className="gap-1">
+                      <Users className="w-3 h-3" />
+                      {businessData.audienceSize}
+                    </Badge>
+                  </div>
+                  <p className="text-muted-foreground leading-relaxed">{businessData.mission}</p>
                 </div>
+              </div>
 
-                {/* Opportunities List */}
-                <div className="space-y-3">
-                  {opportunities.map((opp) => (
-                    <Card 
-                      key={opp.id}
-                      className={`cursor-pointer transition-all hover:shadow-md ${
-                        selectedOpportunity === opp.id ? "ring-2 ring-primary" : ""
-                      }`}
-                      onClick={() => setSelectedOpportunity(opp.id)}
-                    >
-                      <CardContent className="p-4">
-                        <div className="flex items-start justify-between mb-2">
-                          <div className="flex-1">
-                            <h5 className="font-semibold text-foreground">{opp.name}</h5>
-                            <p className="text-sm text-muted-foreground mt-1">{opp.mission}</p>
-                          </div>
-                          <Badge variant="secondary" className="ml-2">
-                            {opp.fitScore}% fit
-                          </Badge>
-                        </div>
-                        <div className="flex flex-wrap gap-2 mt-3">
-                          <Badge variant="outline">{opp.category}</Badge>
-                          <Badge variant="outline" className="gap-1">
-                            <Users className="w-3 h-3" />
-                            {opp.audienceSize}
-                          </Badge>
-                          <Badge variant="outline" className="gap-1">
-                            <DollarSign className="w-3 h-3" />
-                            {opp.requestedAmount}
-                          </Badge>
-                        </div>
-                        <Button 
-                          size="sm" 
-                          className="w-full mt-3"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setSelectedOpportunity(opp.id);
-                          }}
-                        >
-                          View Details
-                        </Button>
-                      </CardContent>
-                    </Card>
+              {/* Funding Goals */}
+              <div className="glass-card rounded-2xl p-6 space-y-4">
+                <div className="flex items-center justify-between">
+                  <h4 className="font-semibold text-foreground flex items-center gap-2">
+                    <DollarSign className="w-5 h-5 text-success" />
+                    Funding Goals & Impact
+                  </h4>
+                  <span className="text-sm font-medium text-foreground">
+                    ${businessData.raisedSoFar.toLocaleString()} / ${businessData.fundingGoal.toLocaleString()}
+                  </span>
+                </div>
+                <Progress 
+                  value={(businessData.raisedSoFar / businessData.fundingGoal) * 100} 
+                  className="h-3 bg-muted"
+                />
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {businessData.purpose}
+                </p>
+              </div>
+
+              {/* Stats Grid */}
+              <div className="grid grid-cols-3 gap-4">
+                {businessData.stats.map((stat, idx) => (
+                  <div key={idx} className="glass-card rounded-xl p-5 text-center space-y-1">
+                    <p className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                      {stat.value}
+                    </p>
+                    <p className="text-sm font-medium text-foreground">{stat.label}</p>
+                    <p className="text-xs text-muted-foreground">{stat.sublabel}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Sponsor Benefits */}
+              <div className="space-y-4">
+                <h4 className="font-semibold text-foreground flex items-center gap-2">
+                  <Award className="w-5 h-5 text-accent" />
+                  Sponsor Benefits & Actions
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {businessData.benefits.map((benefit, idx) => (
+                    <Badge key={idx} variant="secondary" className="text-sm px-3 py-1.5">
+                      <CheckCircle2 className="w-3 h-3 mr-1" />
+                      {benefit}
+                    </Badge>
                   ))}
                 </div>
+              </div>
 
-                {/* Detail Panel */}
-                {selectedOpp && (
-                  <Card className="bg-primary/5 border-primary/20">
-                    <CardHeader>
-                      <CardTitle className="text-lg">{selectedOpp.name}</CardTitle>
-                      <CardDescription>{selectedOpp.category}</CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3 pt-4">
+                <Button className="flex-1 gap-2 bg-gradient-to-r from-primary to-accent hover:opacity-90 text-white shadow-lg shadow-primary/30">
+                  Share sponsorship deck
+                  <ChevronRight className="w-4 h-4" />
+                </Button>
+                <Button variant="outline" className="flex-1 gap-2 border-primary/30 hover:bg-primary/10">
+                  Preview how sponsors see this
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {/* Sponsor View */}
+          {activeView === "sponsor" && (
+            <div className="space-y-6 animate-in fade-in duration-500">
+              <div>
+                <h2 className="text-2xl font-bold text-foreground mb-2 flex items-center gap-2">
+                  <Heart className="w-6 h-6 text-accent" />
+                  For sponsors exploring opportunities
+                </h2>
+                <p className="text-muted-foreground">Discover student events that match your brand and hiring goals</p>
+              </div>
+
+              {/* Filter Bar */}
+              <div className="flex flex-wrap gap-2 glass-card rounded-xl p-4">
+                <Button variant="outline" size="sm" className="gap-2 border-border/50">
+                  <Filter className="w-3 h-3" />
+                  Category
+                </Button>
+                <Button variant="outline" size="sm" className="gap-2 border-border/50">
+                  <DollarSign className="w-3 h-3" />
+                  Budget Range
+                </Button>
+                <Button variant="outline" size="sm" className="gap-2 border-border/50">
+                  <MapPin className="w-3 h-3" />
+                  Location
+                </Button>
+              </div>
+
+              {/* Opportunities List */}
+              <div className="space-y-4">
+                {opportunities.map((opp) => (
+                  <Card 
+                    key={opp.id}
+                    className={`
+                      cursor-pointer transition-all duration-300 border-border/50
+                      hover:shadow-xl hover:shadow-primary/10 hover:border-primary/30
+                      ${selectedOpportunity === opp.id ? "ring-2 ring-secondary shadow-lg shadow-secondary/20" : ""}
+                    `}
+                    onClick={() => setSelectedOpportunity(selectedOpportunity === opp.id ? null : opp.id)}
+                  >
+                    <CardContent className="p-5">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex-1">
+                          <h5 className="font-bold text-lg text-foreground mb-1">{opp.name}</h5>
+                          <p className="text-sm text-muted-foreground">{opp.mission}</p>
+                        </div>
+                        <Badge className="ml-3 bg-success/20 text-success border-success/30 font-semibold">
+                          {opp.fitScore}% fit
+                        </Badge>
+                      </div>
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        <Badge variant="outline">{opp.category}</Badge>
+                        <Badge variant="outline" className="gap-1">
+                          <Users className="w-3 h-3" />
+                          {opp.audienceSize}
+                        </Badge>
+                        <Badge variant="outline" className="gap-1">
+                          <DollarSign className="w-3 h-3" />
+                          {opp.requestedAmount}
+                        </Badge>
+                      </div>
+                      {selectedOpportunity !== opp.id && (
+                        <Button 
+                          size="sm" 
+                          className="w-full bg-gradient-to-r from-secondary to-primary hover:opacity-90 text-white"
+                        >
+                          View Details
+                          <ChevronRight className="w-4 h-4 ml-1" />
+                        </Button>
+                      )}
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              {/* Detail Panel */}
+              {selectedOpp && (
+                <Card className="glass-card border-secondary/30 animate-in slide-in-from-bottom duration-500">
+                  <CardHeader>
+                    <CardTitle className="text-xl flex items-center justify-between">
+                      {selectedOpp.name}
+                      <Badge variant="secondary">{selectedOpp.category}</Badge>
+                    </CardTitle>
+                    <CardDescription className="text-base">{selectedOpp.mission}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-5">
+                    <div>
+                      <h6 className="font-semibold text-sm text-foreground mb-2">Their Story</h6>
                       <p className="text-sm text-muted-foreground leading-relaxed">
-                        {selectedOpp.details.story}
+                        {selectedOpp.story}
                       </p>
+                    </div>
 
+                    <div>
+                      <h6 className="font-semibold text-sm text-foreground mb-3 flex items-center gap-2">
+                        <TrendingUp className="w-4 h-4 text-info" />
+                        Funding Breakdown
+                      </h6>
                       <div className="space-y-2">
-                        <h6 className="font-semibold text-sm text-foreground">Funding Breakdown</h6>
-                        {selectedOpp.details.breakdown.map((item, idx) => (
-                          <div key={idx} className="flex justify-between text-sm p-2 bg-card rounded">
+                        {selectedOpp.breakdown.map((item, idx) => (
+                          <div key={idx} className="flex justify-between text-sm p-3 bg-muted/30 rounded-lg border border-border/30">
                             <span className="text-muted-foreground">{item.item}</span>
-                            <span className="font-medium text-foreground">{item.amount}</span>
+                            <span className="font-semibold text-foreground">{item.amount}</span>
                           </div>
                         ))}
                       </div>
+                    </div>
 
-                      <div className="space-y-2">
-                        <h6 className="font-semibold text-sm text-foreground">Benefits Include</h6>
-                        <div className="flex flex-wrap gap-1">
-                          <Badge variant="secondary">Logo placement</Badge>
-                          <Badge variant="secondary">Social media</Badge>
-                          <Badge variant="secondary">Event booth</Badge>
-                          <Badge variant="secondary">Resume access</Badge>
-                        </div>
+                    <div>
+                      <h6 className="font-semibold text-sm text-foreground mb-3">Benefits Include</h6>
+                      <div className="flex flex-wrap gap-2">
+                        <Badge variant="secondary">Logo placement</Badge>
+                        <Badge variant="secondary">Social media</Badge>
+                        <Badge variant="secondary">Event booth</Badge>
+                        <Badge variant="secondary">Resume access</Badge>
                       </div>
+                    </div>
 
-                      <div className="flex gap-2 pt-2">
-                        <Button className="flex-1 gap-2">
-                          <Mail className="w-4 h-4" />
-                          Contact Team
-                        </Button>
-                        <Button variant="outline" className="flex-1 gap-2">
-                          <Heart className="w-4 h-4" />
-                          Shortlist
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-              </CardContent>
-            </Card>
-          </div>
+                    <div className="flex gap-3 pt-3">
+                      <Button className="flex-1 gap-2 bg-gradient-to-r from-primary to-accent hover:opacity-90 text-white shadow-lg shadow-primary/30">
+                        <Mail className="w-4 h-4" />
+                        Contact Team
+                      </Button>
+                      <Button variant="outline" className="flex-1 gap-2 border-accent/30 hover:bg-accent/10">
+                        <Heart className="w-4 h-4" />
+                        Shortlist
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>

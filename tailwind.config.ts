@@ -60,6 +60,9 @@ export default {
         success: "hsl(var(--success))",
         info: "hsl(var(--info))",
         warning: "hsl(var(--warning))",
+        "gradient-purple": "hsl(var(--gradient-purple))",
+        "gradient-blue": "hsl(var(--gradient-blue))",
+        "gradient-navy": "hsl(var(--gradient-navy))",
       },
       borderRadius: {
         lg: "var(--radius)",

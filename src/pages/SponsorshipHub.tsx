@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -20,6 +21,7 @@ import {
 } from "lucide-react";
 
 const SponsorshipHub = () => {
+  const navigate = useNavigate();
   const [activeView, setActiveView] = useState<"business" | "sponsor">("business");
   const [selectedOpportunity, setSelectedOpportunity] = useState<number | null>(null);
 
@@ -254,8 +256,11 @@ const SponsorshipHub = () => {
 
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-3 pt-4">
-                <Button className="flex-1 gap-2 bg-gradient-to-r from-primary to-accent hover:opacity-90 text-white shadow-lg shadow-primary/30">
-                  Share sponsorship deck
+                <Button 
+                  onClick={() => navigate("/business")}
+                  className="flex-1 gap-2 bg-gradient-to-r from-primary to-accent hover:opacity-90 text-white shadow-lg shadow-primary/30"
+                >
+                  Create Your Profile
                   <ChevronRight className="w-4 h-4" />
                 </Button>
                 <Button variant="outline" className="flex-1 gap-2 border-primary/30 hover:bg-primary/10">
@@ -276,20 +281,30 @@ const SponsorshipHub = () => {
                 <p className="text-muted-foreground">Discover student events that match your brand and hiring goals</p>
               </div>
 
-              {/* Filter Bar */}
-              <div className="flex flex-wrap gap-2 glass-card rounded-xl p-4">
-                <Button variant="outline" size="sm" className="gap-2 border-border/50">
-                  <Filter className="w-3 h-3" />
-                  Category
+              {/* CTA and Filter Bar */}
+              <div className="space-y-4">
+                <Button 
+                  onClick={() => navigate("/sponsor")}
+                  className="w-full gap-2 bg-gradient-to-r from-secondary to-primary hover:opacity-90 text-white shadow-lg shadow-secondary/30"
+                >
+                  Create Your Sponsor Profile
+                  <ChevronRight className="w-4 h-4" />
                 </Button>
-                <Button variant="outline" size="sm" className="gap-2 border-border/50">
-                  <DollarSign className="w-3 h-3" />
-                  Budget Range
-                </Button>
-                <Button variant="outline" size="sm" className="gap-2 border-border/50">
-                  <MapPin className="w-3 h-3" />
-                  Location
-                </Button>
+                
+                <div className="flex flex-wrap gap-2 glass-card rounded-xl p-4">
+                  <Button variant="outline" size="sm" className="gap-2 border-border/50">
+                    <Filter className="w-3 h-3" />
+                    Category
+                  </Button>
+                  <Button variant="outline" size="sm" className="gap-2 border-border/50">
+                    <DollarSign className="w-3 h-3" />
+                    Budget Range
+                  </Button>
+                  <Button variant="outline" size="sm" className="gap-2 border-border/50">
+                    <MapPin className="w-3 h-3" />
+                    Location
+                  </Button>
+                </div>
               </div>
 
               {/* Opportunities List */}

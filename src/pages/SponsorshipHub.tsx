@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { compatibilityScore } from "@/lib/matchingAlgorithm";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -24,6 +25,7 @@ const SponsorshipHub = () => {
   const navigate = useNavigate();
   const [activeView, setActiveView] = useState<"business" | "sponsor">("business");
   const [selectedOpportunity, setSelectedOpportunity] = useState<number | null>(null);
+  const [opportunities, setOpportunities] = useState<any[]>([]);
 
   const businessData = {
     name: "ASU Circle Innovators",
@@ -47,53 +49,96 @@ const SponsorshipHub = () => {
     ]
   };
 
-  const opportunities = [
-    {
-      id: 1,
-      name: "ASU Circle Innovators",
-      category: "Student Event",
-      mission: "Hands-on AI fair connecting students and local tech sponsors.",
-      audienceSize: "500+",
-      requestedAmount: "$5,000",
-      fitScore: 92,
-      story: "We're a student-led organization passionate about making AI education accessible. Our Campus AI Showcase brings together students from diverse backgrounds to build, learn, and compete in a supportive environment.",
-      breakdown: [
-        { item: "Venue & Equipment", amount: "$2,000" },
-        { item: "Travel Scholarships", amount: "$1,500" },
-        { item: "Prizes & Materials", amount: "$1,500" }
-      ]
-    },
-    {
-      id: 2,
-      name: "Tech Community Collective",
-      category: "Club Partnership",
-      mission: "Weekly networking nights for students and tech professionals.",
-      audienceSize: "300+",
-      requestedAmount: "$3,500",
-      fitScore: 85,
-      story: "Building bridges between students and industry through monthly networking events and mentorship programs.",
-      breakdown: [
-        { item: "Venue Rental", amount: "$1,500" },
-        { item: "Food & Beverages", amount: "$1,200" },
-        { item: "Marketing", amount: "$800" }
-      ]
-    },
-    {
-      id: 3,
-      name: "First Year Builders Club",
-      category: "Community Meetup",
-      mission: "Mini-hackathon series for first-year engineering students.",
-      audienceSize: "200+",
-      requestedAmount: "$2,500",
-      fitScore: 78,
-      story: "Empowering first-year students to build confidence through monthly mini-hacks with mentorship from upperclassmen and industry professionals.",
-      breakdown: [
-        { item: "Workshop Materials", amount: "$1,000" },
-        { item: "Prizes", amount: "$1,000" },
-        { item: "Snacks & Supplies", amount: "$500" }
-      ]
+  // Load business profiles from localStorage and calculate fit scores
+  useEffect(() => {
+    const storedBusinessProfile = localStorage.getItem('businessProfile');
+    const storedSponsorProfile = localStorage.getItem('sponsorProfile');
+    
+    const businesses = storedBusinessProfile ? [JSON.parse(storedBusinessProfile)] : [];
+    
+    // Add sample opportunities if no business profiles exist
+    if (businesses.length === 0) {
+      businesses.push(
+        {
+          organizationName: "ASU Circle Innovators",
+          category: "Student Event",
+          mission: "Hands-on AI fair connecting students and local tech sponsors.",
+          targetAudience: ["students", "tech professionals", "AI enthusiasts"],
+          minBudget: 4000,
+          maxBudget: 6000,
+          location: { lat: 33.4242, lng: -111.9281 },
+          purpose: "We're a student-led organization passionate about making AI education accessible."
+        },
+        {
+          organizationName: "Tech Community Collective",
+          category: "Club Partnership",
+          mission: "Weekly networking nights for students and tech professionals.",
+          targetAudience: ["tech professionals", "students", "entrepreneurs"],
+          minBudget: 2500,
+          maxBudget: 4500,
+          location: { lat: 33.4484, lng: -112.0740 },
+          purpose: "Building bridges between students and industry."
+        },
+        {
+          organizationName: "First Year Builders Club",
+          category: "Community Meetup",
+          mission: "Mini-hackathon series for first-year engineering students.",
+          targetAudience: ["students", "beginners", "developers"],
+          minBudget: 2000,
+          maxBudget: 3000,
+          location: { lat: 33.4242, lng: -111.9281 },
+          purpose: "Empowering first-year students to build confidence."
+        }
+      );
     }
-  ];
+
+    // Calculate fit scores
+    const processedOpportunities = businesses.map((business, idx) => {
+      let fitScore = 75; // default
+      
+      if (storedSponsorProfile) {
+        const sponsor = JSON.parse(storedSponsorProfile);
+        const sponsorData = {
+          targetAudience: (sponsor.targetAudience || '').split(',').map((s: string) => s.trim()).filter(Boolean),
+          preferredCategories: (sponsor.interests || '').split(',').map((s: string) => s.trim()).filter(Boolean),
+          location: sponsor.location || { lat: 33.4484, lng: -112.0740 },
+          geographicRadius: 100,
+          minBudget: Number(sponsor.minBudget) || 0,
+          maxBudget: Number(sponsor.maxBudget) || 10000
+        };
+        
+        const businessData = {
+          targetAudience: business.targetAudience || [],
+          category: business.category,
+          location: business.location,
+          minBudget: Number(business.minBudget) || 0,
+          maxBudget: Number(business.maxBudget) || 5000
+        };
+        
+        fitScore = Math.round(compatibilityScore(sponsorData, businessData));
+      }
+
+      const avgBudget = (Number(business.minBudget) || 0 + Number(business.maxBudget) || 5000) / 2;
+      
+      return {
+        id: idx + 1,
+        name: business.organizationName || "Unnamed Organization",
+        category: business.category || "Event",
+        mission: business.mission || "No mission statement provided",
+        audienceSize: "200+",
+        requestedAmount: `$${business.minBudget?.toLocaleString() || 0} - $${business.maxBudget?.toLocaleString() || 5000}`,
+        fitScore: fitScore,
+        story: business.purpose || business.mission || "Building community connections.",
+        breakdown: [
+          { item: "Venue & Equipment", amount: `$${Math.round(avgBudget * 0.4).toLocaleString()}` },
+          { item: "Scholarships/Support", amount: `$${Math.round(avgBudget * 0.3).toLocaleString()}` },
+          { item: "Prizes & Materials", amount: `$${Math.round(avgBudget * 0.3).toLocaleString()}` }
+        ]
+      };
+    });
+
+    setOpportunities(processedOpportunities);
+  }, []);
 
   const selectedOpp = opportunities.find(o => o.id === selectedOpportunity);
 
